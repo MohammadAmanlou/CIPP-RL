@@ -1,0 +1,836 @@
+{
+  "configuration": {
+    "number_of_instances": 100,
+    "n": 14,
+    "H": 30,
+    "base_seed": 42
+  },
+  "random_feasible": {
+    "mean_objective": 1535.1845096814984,
+    "median_objective": 1521.2735477772644,
+    "std_objective": 262.64352654363483,
+    "min_objective": 904.207447775588,
+    "max_objective": 2187.70030283314,
+    "mean_runtime_seconds": 0.31372572977002167,
+    "feasible_rate": 1.0
+  },
+  "greedy_exact_increment": {
+    "mean_objective": 1554.263124605616,
+    "median_objective": 1520.4754727776296,
+    "std_objective": 203.0273961791519,
+    "min_objective": 1108.5427013142491,
+    "max_objective": 2089.2380190483836,
+    "mean_runtime_seconds": 0.25975805561996823,
+    "feasible_rate": 1.0
+  },
+  "paired_comparison": {
+    "mean_greedy_minus_random": 19.078614924117385,
+    "median_greedy_minus_random": 12.620731663245465,
+    "greedy_wins": 52,
+    "ties": 0,
+    "greedy_losses": 48,
+    "greedy_win_rate": 0.52
+  },
+  "instances": [
+    {
+      "instance_id": "week3-test-0000",
+      "instance_seed": 42,
+      "random_policy_seed": 100042,
+      "random_objective": 1621.2792402001019,
+      "greedy_objective": 1681.2098781901757,
+      "greedy_minus_random": 59.93063799007382
+    },
+    {
+      "instance_id": "week3-test-0001",
+      "instance_seed": 43,
+      "random_policy_seed": 100043,
+      "random_objective": 1378.6353387914214,
+      "greedy_objective": 1503.05870809256,
+      "greedy_minus_random": 124.42336930113856
+    },
+    {
+      "instance_id": "week3-test-0002",
+      "instance_seed": 44,
+      "random_policy_seed": 100044,
+      "random_objective": 1587.8931587150923,
+      "greedy_objective": 1720.5850895281662,
+      "greedy_minus_random": 132.6919308130739
+    },
+    {
+      "instance_id": "week3-test-0003",
+      "instance_seed": 45,
+      "random_policy_seed": 100045,
+      "random_objective": 1634.9955211783245,
+      "greedy_objective": 1700.3227184529571,
+      "greedy_minus_random": 65.32719727463268
+    },
+    {
+      "instance_id": "week3-test-0004",
+      "instance_seed": 46,
+      "random_policy_seed": 100046,
+      "random_objective": 1683.21827945463,
+      "greedy_objective": 1654.898199986717,
+      "greedy_minus_random": -28.320079467913047
+    },
+    {
+      "instance_id": "week3-test-0005",
+      "instance_seed": 47,
+      "random_policy_seed": 100047,
+      "random_objective": 2155.2024187535635,
+      "greedy_objective": 2089.2380190483836,
+      "greedy_minus_random": -65.96439970517986
+    },
+    {
+      "instance_id": "week3-test-0006",
+      "instance_seed": 48,
+      "random_policy_seed": 100048,
+      "random_objective": 1756.2539415580134,
+      "greedy_objective": 1669.2079535289608,
+      "greedy_minus_random": -87.04598802905252
+    },
+    {
+      "instance_id": "week3-test-0007",
+      "instance_seed": 49,
+      "random_policy_seed": 100049,
+      "random_objective": 1506.7072922136176,
+      "greedy_objective": 1691.1349862430304,
+      "greedy_minus_random": 184.4276940294128
+    },
+    {
+      "instance_id": "week3-test-0008",
+      "instance_seed": 50,
+      "random_policy_seed": 100050,
+      "random_objective": 1141.4583356193357,
+      "greedy_objective": 1303.1231085838733,
+      "greedy_minus_random": 161.66477296453763
+    },
+    {
+      "instance_id": "week3-test-0009",
+      "instance_seed": 51,
+      "random_policy_seed": 100051,
+      "random_objective": 1577.374476491142,
+      "greedy_objective": 1599.8398533892798,
+      "greedy_minus_random": 22.46537689813772
+    },
+    {
+      "instance_id": "week3-test-0010",
+      "instance_seed": 52,
+      "random_policy_seed": 100052,
+      "random_objective": 1841.0432172543992,
+      "greedy_objective": 1592.732075222496,
+      "greedy_minus_random": -248.31114203190327
+    },
+    {
+      "instance_id": "week3-test-0011",
+      "instance_seed": 53,
+      "random_policy_seed": 100053,
+      "random_objective": 1386.9206631636625,
+      "greedy_objective": 1443.1866458059937,
+      "greedy_minus_random": 56.26598264233121
+    },
+    {
+      "instance_id": "week3-test-0012",
+      "instance_seed": 54,
+      "random_policy_seed": 100054,
+      "random_objective": 1422.4595515288588,
+      "greedy_objective": 1427.1810856658497,
+      "greedy_minus_random": 4.72153413699084
+    },
+    {
+      "instance_id": "week3-test-0013",
+      "instance_seed": 55,
+      "random_policy_seed": 100055,
+      "random_objective": 1381.0691012537404,
+      "greedy_objective": 1633.697107915401,
+      "greedy_minus_random": 252.6280066616605
+    },
+    {
+      "instance_id": "week3-test-0014",
+      "instance_seed": 56,
+      "random_policy_seed": 100056,
+      "random_objective": 1290.2933587172445,
+      "greedy_objective": 1453.8473280503886,
+      "greedy_minus_random": 163.5539693331441
+    },
+    {
+      "instance_id": "week3-test-0015",
+      "instance_seed": 57,
+      "random_policy_seed": 100057,
+      "random_objective": 1849.9859770332612,
+      "greedy_objective": 1475.9983109082561,
+      "greedy_minus_random": -373.98766612500503
+    },
+    {
+      "instance_id": "week3-test-0016",
+      "instance_seed": 58,
+      "random_policy_seed": 100058,
+      "random_objective": 1654.7059761719643,
+      "greedy_objective": 1519.268609655936,
+      "greedy_minus_random": -135.4373665160283
+    },
+    {
+      "instance_id": "week3-test-0017",
+      "instance_seed": 59,
+      "random_policy_seed": 100059,
+      "random_objective": 1537.2311749284745,
+      "greedy_objective": 1356.1394170987592,
+      "greedy_minus_random": -181.09175782971533
+    },
+    {
+      "instance_id": "week3-test-0018",
+      "instance_seed": 60,
+      "random_policy_seed": 100060,
+      "random_objective": 1365.0653807134072,
+      "greedy_objective": 1466.3827376184909,
+      "greedy_minus_random": 101.31735690508367
+    },
+    {
+      "instance_id": "week3-test-0019",
+      "instance_seed": 61,
+      "random_policy_seed": 100061,
+      "random_objective": 2187.70030283314,
+      "greedy_objective": 2085.865624692881,
+      "greedy_minus_random": -101.83467814025926
+    },
+    {
+      "instance_id": "week3-test-0020",
+      "instance_seed": 62,
+      "random_policy_seed": 100062,
+      "random_objective": 1590.4328720679343,
+      "greedy_objective": 1716.5526947449991,
+      "greedy_minus_random": 126.1198226770648
+    },
+    {
+      "instance_id": "week3-test-0021",
+      "instance_seed": 63,
+      "random_policy_seed": 100063,
+      "random_objective": 1184.0297912094713,
+      "greedy_objective": 1377.4106335929487,
+      "greedy_minus_random": 193.38084238347733
+    },
+    {
+      "instance_id": "week3-test-0022",
+      "instance_seed": 64,
+      "random_policy_seed": 100064,
+      "random_objective": 1321.5837327992062,
+      "greedy_objective": 1254.2283715795631,
+      "greedy_minus_random": -67.3553612196431
+    },
+    {
+      "instance_id": "week3-test-0023",
+      "instance_seed": 65,
+      "random_policy_seed": 100065,
+      "random_objective": 1363.4936652300069,
+      "greedy_objective": 1357.6178657485057,
+      "greedy_minus_random": -5.87579948150119
+    },
+    {
+      "instance_id": "week3-test-0024",
+      "instance_seed": 66,
+      "random_policy_seed": 100066,
+      "random_objective": 1264.4518931964565,
+      "greedy_objective": 1479.6981209512735,
+      "greedy_minus_random": 215.24622775481703
+    },
+    {
+      "instance_id": "week3-test-0025",
+      "instance_seed": 67,
+      "random_policy_seed": 100067,
+      "random_objective": 1195.6622654743512,
+      "greedy_objective": 1365.138568290215,
+      "greedy_minus_random": 169.47630281586385
+    },
+    {
+      "instance_id": "week3-test-0026",
+      "instance_seed": 68,
+      "random_policy_seed": 100068,
+      "random_objective": 1422.2273841651954,
+      "greedy_objective": 1539.75040055027,
+      "greedy_minus_random": 117.52301638507447
+    },
+    {
+      "instance_id": "week3-test-0027",
+      "instance_seed": 69,
+      "random_policy_seed": 100069,
+      "random_objective": 1950.6815378582755,
+      "greedy_objective": 1786.2715871738333,
+      "greedy_minus_random": -164.40995068444226
+    },
+    {
+      "instance_id": "week3-test-0028",
+      "instance_seed": 70,
+      "random_policy_seed": 100070,
+      "random_objective": 1745.9444019552102,
+      "greedy_objective": 1690.9882035208075,
+      "greedy_minus_random": -54.95619843440272
+    },
+    {
+      "instance_id": "week3-test-0029",
+      "instance_seed": 71,
+      "random_policy_seed": 100071,
+      "random_objective": 1371.3961809494924,
+      "greedy_objective": 1409.950824935916,
+      "greedy_minus_random": 38.55464398642357
+    },
+    {
+      "instance_id": "week3-test-0030",
+      "instance_seed": 72,
+      "random_policy_seed": 100072,
+      "random_objective": 1496.417101211294,
+      "greedy_objective": 1340.6569618500653,
+      "greedy_minus_random": -155.76013936122877
+    },
+    {
+      "instance_id": "week3-test-0031",
+      "instance_seed": 73,
+      "random_policy_seed": 100073,
+      "random_objective": 1048.0867098275055,
+      "greedy_objective": 1436.8801140786197,
+      "greedy_minus_random": 388.7934042511142
+    },
+    {
+      "instance_id": "week3-test-0032",
+      "instance_seed": 74,
+      "random_policy_seed": 100074,
+      "random_objective": 1589.1568605882576,
+      "greedy_objective": 1656.4391844973416,
+      "greedy_minus_random": 67.28232390908397
+    },
+    {
+      "instance_id": "week3-test-0033",
+      "instance_seed": 75,
+      "random_policy_seed": 100075,
+      "random_objective": 1443.949517964291,
+      "greedy_objective": 1349.6214414148653,
+      "greedy_minus_random": -94.32807654942576
+    },
+    {
+      "instance_id": "week3-test-0034",
+      "instance_seed": 76,
+      "random_policy_seed": 100076,
+      "random_objective": 1555.7232233931056,
+      "greedy_objective": 1594.2552358283033,
+      "greedy_minus_random": 38.53201243519766
+    },
+    {
+      "instance_id": "week3-test-0035",
+      "instance_seed": 77,
+      "random_policy_seed": 100077,
+      "random_objective": 1521.812052432941,
+      "greedy_objective": 1508.9633449293456,
+      "greedy_minus_random": -12.848707503595506
+    },
+    {
+      "instance_id": "week3-test-0036",
+      "instance_seed": 78,
+      "random_policy_seed": 100078,
+      "random_objective": 1701.6067003860624,
+      "greedy_objective": 1771.537498257494,
+      "greedy_minus_random": 69.93079787143165
+    },
+    {
+      "instance_id": "week3-test-0037",
+      "instance_seed": 79,
+      "random_policy_seed": 100079,
+      "random_objective": 1433.6974076800166,
+      "greedy_objective": 1392.1836976492505,
+      "greedy_minus_random": -41.513710030766106
+    },
+    {
+      "instance_id": "week3-test-0038",
+      "instance_seed": 80,
+      "random_policy_seed": 100080,
+      "random_objective": 1581.6225016314168,
+      "greedy_objective": 1677.3524056063088,
+      "greedy_minus_random": 95.72990397489207
+    },
+    {
+      "instance_id": "week3-test-0039",
+      "instance_seed": 81,
+      "random_policy_seed": 100081,
+      "random_objective": 1962.3077199771483,
+      "greedy_objective": 1885.8147606815035,
+      "greedy_minus_random": -76.49295929564482
+    },
+    {
+      "instance_id": "week3-test-0040",
+      "instance_seed": 82,
+      "random_policy_seed": 100082,
+      "random_objective": 1917.3798967768635,
+      "greedy_objective": 1831.5795693463017,
+      "greedy_minus_random": -85.80032743056177
+    },
+    {
+      "instance_id": "week3-test-0041",
+      "instance_seed": 83,
+      "random_policy_seed": 100083,
+      "random_objective": 1129.550599512172,
+      "greedy_objective": 1517.8062092606324,
+      "greedy_minus_random": 388.2556097484603
+    },
+    {
+      "instance_id": "week3-test-0042",
+      "instance_seed": 84,
+      "random_policy_seed": 100084,
+      "random_objective": 1865.0185870289956,
+      "greedy_objective": 1837.7889410195826,
+      "greedy_minus_random": -27.229646009413045
+    },
+    {
+      "instance_id": "week3-test-0043",
+      "instance_seed": 85,
+      "random_policy_seed": 100085,
+      "random_objective": 1556.800272827116,
+      "greedy_objective": 1400.459145482118,
+      "greedy_minus_random": -156.34112734499809
+    },
+    {
+      "instance_id": "week3-test-0044",
+      "instance_seed": 86,
+      "random_policy_seed": 100086,
+      "random_objective": 1068.0800803034829,
+      "greedy_objective": 1343.3710071988385,
+      "greedy_minus_random": 275.2909268953556
+    },
+    {
+      "instance_id": "week3-test-0045",
+      "instance_seed": 87,
+      "random_policy_seed": 100087,
+      "random_objective": 1497.6727161393958,
+      "greedy_objective": 1345.3051151808857,
+      "greedy_minus_random": -152.36760095851014
+    },
+    {
+      "instance_id": "week3-test-0046",
+      "instance_seed": 88,
+      "random_policy_seed": 100088,
+      "random_objective": 1515.5939838090312,
+      "greedy_objective": 1434.7286784035698,
+      "greedy_minus_random": -80.86530540546141
+    },
+    {
+      "instance_id": "week3-test-0047",
+      "instance_seed": 89,
+      "random_policy_seed": 100089,
+      "random_objective": 1996.5964380318574,
+      "greedy_objective": 1875.3591918526347,
+      "greedy_minus_random": -121.23724617922267
+    },
+    {
+      "instance_id": "week3-test-0048",
+      "instance_seed": 90,
+      "random_policy_seed": 100090,
+      "random_objective": 1384.9630814616553,
+      "greedy_objective": 1384.6423530471845,
+      "greedy_minus_random": -0.32072841447075007
+    },
+    {
+      "instance_id": "week3-test-0049",
+      "instance_seed": 91,
+      "random_policy_seed": 100091,
+      "random_objective": 1491.9453942168607,
+      "greedy_objective": 1674.811702411145,
+      "greedy_minus_random": 182.86630819428433
+    },
+    {
+      "instance_id": "week3-test-0050",
+      "instance_seed": 92,
+      "random_policy_seed": 100092,
+      "random_objective": 1420.112353023341,
+      "greedy_objective": 1227.2728489173023,
+      "greedy_minus_random": -192.8395041060387
+    },
+    {
+      "instance_id": "week3-test-0051",
+      "instance_seed": 93,
+      "random_policy_seed": 100093,
+      "random_objective": 1147.9100043111312,
+      "greedy_objective": 1486.539087564249,
+      "greedy_minus_random": 338.62908325311787
+    },
+    {
+      "instance_id": "week3-test-0052",
+      "instance_seed": 94,
+      "random_policy_seed": 100094,
+      "random_objective": 1902.6177879297666,
+      "greedy_objective": 2004.926460648433,
+      "greedy_minus_random": 102.30867271866646
+    },
+    {
+      "instance_id": "week3-test-0053",
+      "instance_seed": 95,
+      "random_policy_seed": 100095,
+      "random_objective": 1046.2276809572083,
+      "greedy_objective": 1468.467539062921,
+      "greedy_minus_random": 422.23985810571276
+    },
+    {
+      "instance_id": "week3-test-0054",
+      "instance_seed": 96,
+      "random_policy_seed": 100096,
+      "random_objective": 1464.9551557368236,
+      "greedy_objective": 1681.2682040813183,
+      "greedy_minus_random": 216.31304834449475
+    },
+    {
+      "instance_id": "week3-test-0055",
+      "instance_seed": 97,
+      "random_policy_seed": 100097,
+      "random_objective": 1833.2981103583625,
+      "greedy_objective": 1703.980523662118,
+      "greedy_minus_random": -129.31758669624446
+    },
+    {
+      "instance_id": "week3-test-0056",
+      "instance_seed": 98,
+      "random_policy_seed": 100098,
+      "random_objective": 1512.8504166221066,
+      "greedy_objective": 1108.5427013142491,
+      "greedy_minus_random": -404.3077153078575
+    },
+    {
+      "instance_id": "week3-test-0057",
+      "instance_seed": 99,
+      "random_policy_seed": 100099,
+      "random_objective": 1429.9986818913378,
+      "greedy_objective": 1683.4669161702784,
+      "greedy_minus_random": 253.4682342789406
+    },
+    {
+      "instance_id": "week3-test-0058",
+      "instance_seed": 100,
+      "random_policy_seed": 100100,
+      "random_objective": 1353.5982041947068,
+      "greedy_objective": 1574.8242963085138,
+      "greedy_minus_random": 221.226092113807
+    },
+    {
+      "instance_id": "week3-test-0059",
+      "instance_seed": 101,
+      "random_policy_seed": 100101,
+      "random_objective": 1348.5660800303713,
+      "greedy_objective": 1429.1436175180056,
+      "greedy_minus_random": 80.57753748763434
+    },
+    {
+      "instance_id": "week3-test-0060",
+      "instance_seed": 102,
+      "random_policy_seed": 100102,
+      "random_objective": 1132.24839030795,
+      "greedy_objective": 1435.1669792003431,
+      "greedy_minus_random": 302.918588892393
+    },
+    {
+      "instance_id": "week3-test-0061",
+      "instance_seed": 103,
+      "random_policy_seed": 100103,
+      "random_objective": 1861.531495763093,
+      "greedy_objective": 1807.6639995517598,
+      "greedy_minus_random": -53.86749621133322
+    },
+    {
+      "instance_id": "week3-test-0062",
+      "instance_seed": 104,
+      "random_policy_seed": 100104,
+      "random_objective": 1748.957794451996,
+      "greedy_objective": 1718.2717943680118,
+      "greedy_minus_random": -30.686000083984254
+    },
+    {
+      "instance_id": "week3-test-0063",
+      "instance_seed": 105,
+      "random_policy_seed": 100105,
+      "random_objective": 1831.4503983453703,
+      "greedy_objective": 1865.35659194532,
+      "greedy_minus_random": 33.906193599949574
+    },
+    {
+      "instance_id": "week3-test-0064",
+      "instance_seed": 106,
+      "random_policy_seed": 100106,
+      "random_objective": 904.207447775588,
+      "greedy_objective": 1235.2742484696946,
+      "greedy_minus_random": 331.06680069410663
+    },
+    {
+      "instance_id": "week3-test-0065",
+      "instance_seed": 107,
+      "random_policy_seed": 100107,
+      "random_objective": 1114.7696766847669,
+      "greedy_objective": 1280.147578522721,
+      "greedy_minus_random": 165.37790183795414
+    },
+    {
+      "instance_id": "week3-test-0066",
+      "instance_seed": 108,
+      "random_policy_seed": 100108,
+      "random_objective": 1806.91312382863,
+      "greedy_objective": 1728.9776297661765,
+      "greedy_minus_random": -77.93549406245347
+    },
+    {
+      "instance_id": "week3-test-0067",
+      "instance_seed": 109,
+      "random_policy_seed": 100109,
+      "random_objective": 1368.946701629195,
+      "greedy_objective": 1605.5971794877057,
+      "greedy_minus_random": 236.6504778585106
+    },
+    {
+      "instance_id": "week3-test-0068",
+      "instance_seed": 110,
+      "random_policy_seed": 100110,
+      "random_objective": 1500.8495603900483,
+      "greedy_objective": 1507.9606284987021,
+      "greedy_minus_random": 7.111068108653853
+    },
+    {
+      "instance_id": "week3-test-0069",
+      "instance_seed": 111,
+      "random_policy_seed": 100111,
+      "random_objective": 1225.7431537501272,
+      "greedy_objective": 1172.2994141062975,
+      "greedy_minus_random": -53.44373964382976
+    },
+    {
+      "instance_id": "week3-test-0070",
+      "instance_seed": 112,
+      "random_policy_seed": 100112,
+      "random_objective": 1663.6046398542119,
+      "greedy_objective": 1469.1242251722567,
+      "greedy_minus_random": -194.48041468195515
+    },
+    {
+      "instance_id": "week3-test-0071",
+      "instance_seed": 113,
+      "random_policy_seed": 100113,
+      "random_objective": 1242.9352153679968,
+      "greedy_objective": 1319.408542086924,
+      "greedy_minus_random": 76.47332671892718
+    },
+    {
+      "instance_id": "week3-test-0072",
+      "instance_seed": 114,
+      "random_policy_seed": 100114,
+      "random_objective": 1365.4710227829653,
+      "greedy_objective": 1426.2913741208245,
+      "greedy_minus_random": 60.820351337859165
+    },
+    {
+      "instance_id": "week3-test-0073",
+      "instance_seed": 115,
+      "random_policy_seed": 100115,
+      "random_objective": 1221.1351075638695,
+      "greedy_objective": 1187.9372666300048,
+      "greedy_minus_random": -33.197840933864654
+    },
+    {
+      "instance_id": "week3-test-0074",
+      "instance_seed": 116,
+      "random_policy_seed": 100116,
+      "random_objective": 1554.4407406287764,
+      "greedy_objective": 1522.3258785080907,
+      "greedy_minus_random": -32.11486212068576
+    },
+    {
+      "instance_id": "week3-test-0075",
+      "instance_seed": 117,
+      "random_policy_seed": 100117,
+      "random_objective": 1591.4656398250434,
+      "greedy_objective": 1381.1029326426758,
+      "greedy_minus_random": -210.36270718236756
+    },
+    {
+      "instance_id": "week3-test-0076",
+      "instance_seed": 118,
+      "random_policy_seed": 100118,
+      "random_objective": 1448.1741913322417,
+      "greedy_objective": 1478.2432639658941,
+      "greedy_minus_random": 30.069072633652468
+    },
+    {
+      "instance_id": "week3-test-0077",
+      "instance_seed": 119,
+      "random_policy_seed": 100119,
+      "random_objective": 1429.5272139152644,
+      "greedy_objective": 1495.7786722095805,
+      "greedy_minus_random": 66.25145829431608
+    },
+    {
+      "instance_id": "week3-test-0078",
+      "instance_seed": 120,
+      "random_policy_seed": 100120,
+      "random_objective": 1880.6416324747813,
+      "greedy_objective": 1633.4612190994117,
+      "greedy_minus_random": -247.18041337536965
+    },
+    {
+      "instance_id": "week3-test-0079",
+      "instance_seed": 121,
+      "random_policy_seed": 100121,
+      "random_objective": 1725.982997487221,
+      "greedy_objective": 1666.3811855523136,
+      "greedy_minus_random": -59.601811934907346
+    },
+    {
+      "instance_id": "week3-test-0080",
+      "instance_seed": 122,
+      "random_policy_seed": 100122,
+      "random_objective": 1711.9077552269498,
+      "greedy_objective": 1550.8928758362936,
+      "greedy_minus_random": -161.01487939065623
+    },
+    {
+      "instance_id": "week3-test-0081",
+      "instance_seed": 123,
+      "random_policy_seed": 100123,
+      "random_objective": 1799.571309130129,
+      "greedy_objective": 1521.6823358993233,
+      "greedy_minus_random": -277.88897323080573
+    },
+    {
+      "instance_id": "week3-test-0082",
+      "instance_seed": 124,
+      "random_policy_seed": 100124,
+      "random_objective": 1448.6049939910931,
+      "greedy_objective": 1541.5984051886833,
+      "greedy_minus_random": 92.99341119759015
+    },
+    {
+      "instance_id": "week3-test-0083",
+      "instance_seed": 125,
+      "random_policy_seed": 100125,
+      "random_objective": 1560.6232131530423,
+      "greedy_objective": 1678.3769307817242,
+      "greedy_minus_random": 117.7537176286819
+    },
+    {
+      "instance_id": "week3-test-0084",
+      "instance_seed": 126,
+      "random_policy_seed": 100126,
+      "random_objective": 924.0342234027329,
+      "greedy_objective": 1253.840007664402,
+      "greedy_minus_random": 329.80578426166915
+    },
+    {
+      "instance_id": "week3-test-0085",
+      "instance_seed": 127,
+      "random_policy_seed": 100127,
+      "random_objective": 1656.3766200713342,
+      "greedy_objective": 1337.3548387517349,
+      "greedy_minus_random": -319.0217813195993
+    },
+    {
+      "instance_id": "week3-test-0086",
+      "instance_seed": 128,
+      "random_policy_seed": 100128,
+      "random_objective": 2029.0926627271215,
+      "greedy_objective": 2077.6887081751074,
+      "greedy_minus_random": 48.596045447985944
+    },
+    {
+      "instance_id": "week3-test-0087",
+      "instance_seed": 129,
+      "random_policy_seed": 100129,
+      "random_objective": 1580.0853682756988,
+      "greedy_objective": 1828.1099829868829,
+      "greedy_minus_random": 248.02461471118409
+    },
+    {
+      "instance_id": "week3-test-0088",
+      "instance_seed": 130,
+      "random_policy_seed": 100130,
+      "random_objective": 1650.4366383584286,
+      "greedy_objective": 1376.2717517940787,
+      "greedy_minus_random": -274.1648865643499
+    },
+    {
+      "instance_id": "week3-test-0089",
+      "instance_seed": 131,
+      "random_policy_seed": 100131,
+      "random_objective": 1336.0487197580464,
+      "greedy_objective": 1731.4968113933778,
+      "greedy_minus_random": 395.44809163533137
+    },
+    {
+      "instance_id": "week3-test-0090",
+      "instance_seed": 132,
+      "random_policy_seed": 100132,
+      "random_objective": 1534.9970801109744,
+      "greedy_objective": 1694.6487883835373,
+      "greedy_minus_random": 159.65170827256293
+    },
+    {
+      "instance_id": "week3-test-0091",
+      "instance_seed": 133,
+      "random_policy_seed": 100133,
+      "random_objective": 1734.3098571786481,
+      "greedy_objective": 1787.2835466117212,
+      "greedy_minus_random": 52.973689433073105
+    },
+    {
+      "instance_id": "week3-test-0092",
+      "instance_seed": 134,
+      "random_policy_seed": 100134,
+      "random_objective": 1844.0938688850615,
+      "greedy_objective": 1665.9601916788383,
+      "greedy_minus_random": -178.13367720622318
+    },
+    {
+      "instance_id": "week3-test-0093",
+      "instance_seed": 135,
+      "random_policy_seed": 100135,
+      "random_objective": 1574.351065164004,
+      "greedy_objective": 1548.4629249018699,
+      "greedy_minus_random": -25.88814026213413
+    },
+    {
+      "instance_id": "week3-test-0094",
+      "instance_seed": 136,
+      "random_policy_seed": 100136,
+      "random_objective": 1520.7350431215878,
+      "greedy_objective": 1413.3509753740118,
+      "greedy_minus_random": -107.38406774757595
+    },
+    {
+      "instance_id": "week3-test-0095",
+      "instance_seed": 137,
+      "random_policy_seed": 100137,
+      "random_objective": 1790.3548658767054,
+      "greedy_objective": 1808.4852610945425,
+      "greedy_minus_random": 18.130395217837076
+    },
+    {
+      "instance_id": "week3-test-0096",
+      "instance_seed": 138,
+      "random_policy_seed": 100138,
+      "random_objective": 1867.1465971856421,
+      "greedy_objective": 1668.2417698836618,
+      "greedy_minus_random": -198.90482730198028
+    },
+    {
+      "instance_id": "week3-test-0097",
+      "instance_seed": 139,
+      "random_policy_seed": 100139,
+      "random_objective": 1496.8556608859844,
+      "greedy_objective": 1425.0108819987581,
+      "greedy_minus_random": -71.84477888722631
+    },
+    {
+      "instance_id": "week3-test-0098",
+      "instance_seed": 140,
+      "random_policy_seed": 100140,
+      "random_objective": 1478.512411055618,
+      "greedy_objective": 1439.1959951725844,
+      "greedy_minus_random": -39.31641588303364
+    },
+    {
+      "instance_id": "week3-test-0099",
+      "instance_seed": 141,
+      "random_policy_seed": 100141,
+      "random_objective": 1773.8051186982939,
+      "greedy_objective": 1469.0753910754831,
+      "greedy_minus_random": -304.72972762281074
+    }
+  ]
+}
