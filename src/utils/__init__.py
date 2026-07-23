@@ -12,6 +12,10 @@ from src.utils.instance_io import (
     save_instance,
 )
 
+from src.utils.normalization import (
+    ObservationNormalizer,
+)
+
 from src.utils.permutation import (
     permute_instance,
     relabel_itinerary,
@@ -20,6 +24,7 @@ from src.utils.permutation import (
 
 __all__ = [
     "SCHEMA_VERSION",
+    "ObservationNormalizer",
     "generate_cipp_instance",
     "instance_from_dict",
     "instance_to_dict",
