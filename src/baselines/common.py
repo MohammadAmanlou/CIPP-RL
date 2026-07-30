@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 
@@ -20,6 +20,8 @@ class PolicyResult:
     feasible: bool
     violations: tuple[str, ...]
     runtime_seconds: float
+    rollouts: int = 1
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         """Convert the result to JSON-compatible values."""
@@ -35,4 +37,6 @@ class PolicyResult:
             "feasible": self.feasible,
             "violations": list(self.violations),
             "runtime_seconds": self.runtime_seconds,
+            "rollouts": self.rollouts,
+            "metadata": self.metadata,
         }

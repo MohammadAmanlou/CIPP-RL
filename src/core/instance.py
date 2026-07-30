@@ -192,6 +192,10 @@ class CIPPInstance:
     temporal_weights: ArrayLike = field(repr=False)
     gamma: float
 
+    # 0 reproduces the original project formulation mu_j = 1-gamma*j.
+    # 1 reproduces the professor MILP formulation 1-gamma*(j-1).
+    repeat_count_offset: int = 0
+
     p: int = 1
     instance_id: str = "unnamed"
 
@@ -234,6 +238,17 @@ class CIPPInstance:
             minimum=1,
         )
 
+        self.repeat_count_offset = _require_integer(
+            "repeat_count_offset",
+            self.repeat_count_offset,
+            minimum=0,
+        )
+
+        if self.repeat_count_offset not in (0, 1):
+            raise ValueError(
+                "repeat_count_offset must be either 0 or 1."
+            )
+
         if self.p != 1:
             raise ValueError(
                 "The base implementation requires p == 1."
@@ -261,12 +276,21 @@ class CIPPInstance:
             self.gamma,
         )
 
-        maximum_gamma = 1.0 / self.q
+        maximum_discounted_count = max(
+            self.q - self.repeat_count_offset,
+            0,
+        )
+        maximum_gamma = (
+            float("inf")
+            if maximum_discounted_count == 0
+            else 1.0 / maximum_discounted_count
+        )
 
         if self.gamma > maximum_gamma + 1e-12:
             raise ValueError(
-                "gamma must satisfy 0 <= gamma <= 1/q; "
-                f"got gamma={self.gamma}, q={self.q}."
+                "gamma must satisfy nonnegative repeat factors up to q; "
+                f"got gamma={self.gamma}, q={self.q}, "
+                f"repeat_count_offset={self.repeat_count_offset}."
             )
 
         self.rewards = _float_vector(
@@ -328,7 +352,12 @@ class CIPPInstance:
         self,
         visit_count: int,
     ) -> float:
-        """Return mu_j = 1 - gamma * j."""
+        """Return the configured repeat factor for ``visit_count``.
+
+        ``repeat_count_offset=0`` gives ``1-gamma*j``.
+        ``repeat_count_offset=1`` gives the professor MILP factor
+        ``1-gamma*(j-1)`` for positive visit counts.
+        """
 
         count = _require_integer(
             "visit_count",
@@ -336,9 +365,12 @@ class CIPPInstance:
             minimum=0,
         )
 
-        if count > self.q:
-            raise ValueError(
-                f"visit_count must not exceed q={self.q}."
-            )
+        # The evaluator also calls this method for infeasible itineraries so it
+        # can report the visit-cap violation together with a diagnostic
+        # objective value.  Therefore counts above q are accepted here.
+        discounted_count = max(
+            count - self.repeat_count_offset,
+            0,
+        )
 
-        return 1.0 - self.gamma * count
+        return 1.0 - self.gamma * discounted_count

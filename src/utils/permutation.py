@@ -71,6 +71,7 @@ def permute_instance(
         w=instance.w,
         temporal_weights=instance.temporal_weights,
         gamma=instance.gamma,
+        repeat_count_offset=instance.repeat_count_offset,
         p=instance.p,
         instance_id=(
             instance_id

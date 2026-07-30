@@ -148,8 +148,9 @@ def deterministic_objective(
         itinerary,
     )
 
-    repeat_factors = (
-        1.0 - instance.gamma * counts
+    repeat_factors = np.asarray(
+        [instance.repeat_factor(int(count)) for count in counts],
+        dtype=np.float64,
     )
 
     contributions = (

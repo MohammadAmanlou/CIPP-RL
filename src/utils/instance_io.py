@@ -10,7 +10,7 @@ from typing import Any
 from src.core import CIPPInstance
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 def instance_to_dict(
@@ -36,6 +36,7 @@ def instance_to_dict(
             instance.temporal_weights.tolist()
         ),
         "gamma": instance.gamma,
+        "repeat_count_offset": instance.repeat_count_offset,
         "p": instance.p,
     }
 
@@ -55,10 +56,10 @@ def instance_from_dict(
         SCHEMA_VERSION,
     )
 
-    if schema_version != SCHEMA_VERSION:
+    if schema_version not in (1, SCHEMA_VERSION):
         raise ValueError(
             f"Unsupported schema_version={schema_version}; "
-            f"expected {SCHEMA_VERSION}."
+            f"expected 1 or {SCHEMA_VERSION}."
         )
 
     required_fields = {
@@ -106,6 +107,10 @@ def instance_from_dict(
             "temporal_weights"
         ],
         gamma=data["gamma"],
+        repeat_count_offset=data.get(
+            "repeat_count_offset",
+            0,
+        ),
         p=data["p"],
     )
 

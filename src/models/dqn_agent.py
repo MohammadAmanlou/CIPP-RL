@@ -29,6 +29,7 @@ class DQNConfig:
     learning_rate: float = 3e-4
     gamma: float = 1.0
     gradient_clip_norm: float = 1.0
+    double_dqn: bool = True
 
 
 class QNetwork(nn.Module):
@@ -140,6 +141,40 @@ class DQNAgent:
             lr=self.config.learning_rate,
         )
 
+    def predict_q_values(
+        self,
+        observation: np.ndarray,
+        action_mask: np.ndarray | None = None,
+    ) -> np.ndarray:
+        """Return Q-values, optionally replacing masked entries by -inf."""
+
+        state = np.asarray(observation, dtype=np.float32)
+        if state.shape != (self.observation_dim,):
+            raise ValueError("observation has the wrong shape.")
+
+        was_training = self.online_network.training
+        self.online_network.eval()
+        with torch.no_grad():
+            state_tensor = torch.as_tensor(
+                state, dtype=torch.float32, device=self.device
+            ).unsqueeze(0)
+            values = self.online_network(state_tensor).squeeze(0)
+
+            if action_mask is not None:
+                mask = np.asarray(action_mask, dtype=np.bool_)
+                if mask.shape != (self.action_dim,):
+                    raise ValueError("action_mask has the wrong shape.")
+                mask_tensor = torch.as_tensor(
+                    mask, dtype=torch.bool, device=self.device
+                )
+                values = values.masked_fill(~mask_tensor, -torch.inf)
+
+            output = values.detach().cpu().numpy().astype(np.float64, copy=True)
+
+        if was_training:
+            self.online_network.train()
+        return output
+
     def select_action(
         self,
         observation: np.ndarray,
@@ -197,39 +232,12 @@ class DQNAgent:
                 )
             )
 
-        self.online_network.eval()
+        masked_q_values = self.predict_q_values(
+            state,
+            mask,
+        )
 
-        with torch.no_grad():
-            state_tensor = torch.as_tensor(
-                state,
-                dtype=torch.float32,
-                device=self.device,
-            ).unsqueeze(0)
-
-            q_values = self.online_network(
-                state_tensor
-            ).squeeze(0)
-
-            mask_tensor = torch.as_tensor(
-                mask,
-                dtype=torch.bool,
-                device=self.device,
-            )
-
-            masked_q_values = q_values.masked_fill(
-                ~mask_tensor,
-                -torch.inf,
-            )
-
-            action = int(
-                torch.argmax(
-                    masked_q_values
-                ).item()
-            )
-
-        self.online_network.train()
-
-        return action
+        return int(np.argmax(masked_q_values))
 
     def optimize(
         self,
@@ -298,37 +306,28 @@ class DQNAgent:
         ).squeeze(1)
 
         with torch.no_grad():
-            next_q_values = self.target_network(
-                next_states
-            )
+            target_next_q = self.target_network(next_states)
 
-            masked_next_q_values = (
-                next_q_values.masked_fill(
-                    ~next_masks,
-                    -torch.inf,
+            if self.config.double_dqn:
+                online_next_q = self.online_network(next_states)
+                masked_online_next_q = online_next_q.masked_fill(
+                    ~next_masks, -torch.inf
                 )
-            )
+                next_actions = masked_online_next_q.argmax(dim=1)
+                next_max = target_next_q.gather(
+                    1, next_actions.unsqueeze(1)
+                ).squeeze(1)
+            else:
+                masked_target_next_q = target_next_q.masked_fill(
+                    ~next_masks, -torch.inf
+                )
+                next_max = masked_target_next_q.max(dim=1).values
 
-            next_max = (
-                masked_next_q_values
-                .max(dim=1)
-                .values
-            )
-
-            # Terminal states have no future value.
+            # Terminal states can have an empty next mask and no future value.
             next_max = torch.where(
-                dones,
-                torch.zeros_like(
-                    next_max
-                ),
-                next_max,
+                dones, torch.zeros_like(next_max), next_max
             )
-
-            targets = (
-                rewards
-                + self.config.gamma
-                * next_max
-            )
+            targets = rewards + self.config.gamma * next_max
 
         loss = F.smooth_l1_loss(
             chosen_q_values,

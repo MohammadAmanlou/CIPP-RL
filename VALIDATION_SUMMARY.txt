@@ -1,0 +1,28 @@
+CIPPRL Stage 4 - Validation Summary
+===================================
+
+Automated test suite:
+  51 passed, 1 skipped
+  The skipped test is the optional Gurobi-vs-brute-force cross-check because
+  gurobipy/a working license is not available in the build environment.
+
+Standalone masked-environment validation:
+  Episodes requested:       1000
+  Episodes completed:       1000
+  Constraint violations:    0
+  Dead-end states:          0
+  Reward mismatches:        0
+  Passed:                   True
+
+End-to-end pipeline smoke validation:
+  - real-profile-matched DQN training completed;
+  - best/last checkpoints and learning curves were generated;
+  - Random, Random-Best-of-K, Greedy, DQN-Greedy and DQN-Backtracking-K
+    benchmark completed on D_15S_30P_CODE without Gurobi;
+  - DQN backtracking improved or matched its first greedy DQN rollout;
+  - all produced itineraries were feasible.
+
+Important:
+  Smoke-training objectives are not scientific results and are intentionally
+  excluded from the final package. Run the documented full five-seed training
+  and the licensed Gurobi benchmark before reporting final objective gaps.

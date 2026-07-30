@@ -73,6 +73,8 @@ class CIPPEnv:
         self._spent_budget = 0.0
         self._cumulative_reward = 0.0
         self._done = False
+        self._cached_mask_day = -1
+        self._cached_action_mask: BoolArray | None = None
 
     @property
     def day(self) -> int:
@@ -153,6 +155,8 @@ class CIPPEnv:
         self._spent_budget = 0.0
         self._cumulative_reward = 0.0
         self._done = False
+        self._cached_mask_day = -1
+        self._cached_action_mask = None
 
         return (
             self.get_observation(),
@@ -160,12 +164,19 @@ class CIPPEnv:
         )
 
     def get_action_mask(self) -> BoolArray:
-        """Return the current viability mask."""
+        """Return the current viability mask.
 
-        return get_viability_mask(
-            self.instance,
-            self._itinerary,
-        )
+        The mask is cached for the current day because action selection and
+        ``step`` request the same mask repeatedly during DQN training.
+        """
+
+        if self._cached_action_mask is None or self._cached_mask_day != self.day:
+            self._cached_action_mask = get_viability_mask(
+                self.instance,
+                self._itinerary,
+            )
+            self._cached_mask_day = self.day
+        return self._cached_action_mask.copy()
 
     def compute_reward(
         self,
@@ -316,6 +327,8 @@ class CIPPEnv:
         self._itinerary.append(
             normalized_action
         )
+        self._cached_action_mask = None
+        self._cached_mask_day = -1
 
         self._cumulative_reward += (
             reward
@@ -443,6 +456,8 @@ class CIPPEnv:
                 float(self.instance.q),
                 float(self.instance.w),
                 float(self.instance.gamma),
+                float(self.instance.repeat_count_offset),
+                float(self.instance.p),
             ],
             dtype=np.float64,
         )

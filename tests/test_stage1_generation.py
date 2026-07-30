@@ -44,6 +44,7 @@ def assert_instances_equal(
         second.gamma
     )
 
+    assert first.repeat_count_offset == second.repeat_count_offset
     assert first.p == second.p
 
     np.testing.assert_allclose(
@@ -181,7 +182,7 @@ def test_save_load_round_trip(
     ) as file:
         payload = json.load(file)
 
-    assert payload["schema_version"] == 1
+    assert payload["schema_version"] == 2
 
 
 def test_location_permutation_preserves_objective() -> None:
