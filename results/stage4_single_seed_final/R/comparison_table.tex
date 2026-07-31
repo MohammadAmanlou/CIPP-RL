@@ -1,0 +1,16 @@
+\begin{table*}[t]
+\centering
+\caption{Performance on the smallest real-data CIPP instance.}
+\begin{tabular}{llrrrrrr}
+\toprule
+Instance & Method & BFS & Mean & Std & Best gap (\%) & CPU total (s) & Feasible \\
+\midrule
+R\_15S\_30P\_CODE & random\_feasible\_30\_runs & 10065.0 & 7486.9 & 961.1 & 31.74 & 0.333 & 1.00 \\
+R\_15S\_30P\_CODE & random\_best\_of\_30 & 10065.0 & 10065.0 & 0.0 & 31.74 & 0.333 & 1.00 \\
+R\_15S\_30P\_CODE & greedy\_exact\_increment & 13296.8 & 13296.8 & 0.0 & 9.82 & 0.012 & 1.00 \\
+R\_15S\_30P\_CODE & dqn\_greedy & 11090.0 & 11090.0 & 0.0 & 24.79 & 0.030 & 1.00 \\
+R\_15S\_30P\_CODE & dqn\_backtracking\_30 & 11465.7 & 11465.7 & 0.0 & 22.24 & 0.471 & 1.00 \\
+R\_15S\_30P\_CODE & gurobi & 14745.4 & 14745.4 & 0.0 & 0.00 & 10.928 & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table*}
