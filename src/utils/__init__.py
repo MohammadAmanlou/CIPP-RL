@@ -25,27 +25,34 @@ from src.utils.professor_instance import (
     reward_range_from_xls,
 )
 from src.utils.professor_instances import (
+    BudgetMode,
     ObjectiveVariant,
     ProfessorBenchmark,
+    ProfessorInstanceSpec,
     TABLE5_REFERENCES,
     Table5Reference,
+    benchmark_from_instance,
     generate_paper_like_instance,
     load_professor_benchmark,
     paper_idle_requirements,
     paper_temporal_weights,
+    parse_professor_instance_id,
 )
 from src.utils.permutation import permute_instance, relabel_itinerary
 
 
 __all__ = [
+    "BudgetMode",
     "SCHEMA_VERSION",
     "ObservationNormalizer",
     "ObjectiveVariant",
     "PAPER_SMALLEST_REAL_LOCATIONS",
     "PROFESSOR_SMALLEST_CITIES_PARAMETER",
     "ProfessorBenchmark",
+    "ProfessorInstanceSpec",
     "TABLE5_REFERENCES",
     "Table5Reference",
+    "benchmark_from_instance",
     "generate_cipp_instance",
     "generate_paper_like_instance",
     "generate_professor_matched_instance",
@@ -58,6 +65,7 @@ __all__ = [
     "load_professor_benchmark",
     "paper_idle_requirements",
     "paper_temporal_weights",
+    "parse_professor_instance_id",
     "permute_instance",
     "professor_idle_requirements",
     "professor_instance_label",

@@ -1,0 +1,20 @@
+CIPP-RL PPO Suite v4 validation
+===============================
+
+Unit/integration tests:
+  75 passed, 1 skipped
+
+Validated behaviors:
+  - D_14S_30P = 14 visitable states + 1 Idle action = 15 total actions
+  - zero-reward/zero-cost source row is represented exactly once as Idle
+  - vectorized PPO rollout collection remains feasible
+  - all advanced architectures update with finite metrics
+  - construction early stopping triggers and writes best/last checkpoints
+  - improvement early stopping uses fixed starts and triggers correctly
+  - periodic progress and validation logs are flushed immediately
+  - strict benchmark-only loads checkpoints and never trains
+  - five-method smoke suite completes on D_14S_30P
+  - improvement total runtime includes start generation
+
+Optional skip:
+  - Gurobi-dependent exact test when gurobipy/license is unavailable

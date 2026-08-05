@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import time
-from typing import Literal
+from typing import Literal, Sequence
 
 import numpy as np
 
@@ -122,8 +122,14 @@ def solve_cipp_gurobi(
     threads: int | None = None,
     output_directory: str | Path | None = None,
     verbose: bool = False,
+    mip_start_itinerary: Sequence[int] | None = None,
 ) -> ExactCIPPSolution:
-    """Solve CIPP with Gurobi and return a teacher itinerary."""
+    """Solve CIPP with Gurobi and return a teacher itinerary.
+
+    ``mip_start_itinerary`` is an optional hybrid experiment.  It never
+    changes or trains the RL policy; it only supplies a feasible RL incumbent
+    to Gurobi before optimization.
+    """
 
     try:
         import gurobipy as gp
@@ -430,6 +436,32 @@ def solve_cipp_gurobi(
         <= instance.budget,
         name="Budget",
     )
+
+    if mip_start_itinerary is not None:
+        start_actions = tuple(int(action) for action in mip_start_itinerary)
+        start_evaluation = evaluate_itinerary(instance, start_actions)
+        if not start_evaluation.feasible:
+            raise ValueError(
+                "mip_start_itinerary must be a complete feasible solution: "
+                + "; ".join(start_evaluation.violations)
+            )
+        for period in periods:
+            action = start_actions[period]
+            idle[period].Start = float(action == 0)
+            for location in locations:
+                z[location, period].Start = float(action == location + 1)
+        for location in locations:
+            selected_count = int(start_evaluation.visit_counts[location])
+            for count in visit_counts:
+                s[location, count].Start = float(count == selected_count)
+                for period in periods:
+                    y[location, period, count].Start = float(
+                        count == selected_count
+                        and start_actions[period] == location + 1
+                    )
+
+        if output_path is not None:
+            model.write(str(output_path / f"{instance.instance_id}.rl_start.mst"))
 
     model.optimize()
 

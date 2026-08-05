@@ -541,6 +541,7 @@ def test_professor_loader_keeps_variants_explicit() -> None:
         objective_variant=(
             "paper_equation"
         ),
+        budget_mode="disabled",
     )
 
     legacy = load_professor_benchmark(
@@ -554,6 +555,7 @@ def test_professor_loader_keeps_variants_explicit() -> None:
     )
 
     assert paper.instance.n == 14
+    assert paper.instance.num_actions == 15
     assert paper.location_names[0] == (
         "Alabama"
     )

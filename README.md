@@ -1,5 +1,30 @@
 # CIPP-RL
 
+## Advanced PPO suite
+
+The repository now includes a paper-ready, RL-only advanced suite:
+
+- stable separate-actor/critic MLP PPO;
+- location-token Attention PPO;
+- hierarchical Idle/Visit/location PPO;
+- HACIPP with exact-marginal residual logits, an auxiliary count planner,
+  POMO/group-relative training, and elite self-imitation;
+- simulation-guided beam search driven only by the frozen RL policy;
+- a second PPO agent that performs up to 30 feasible neural-neighborhood
+  improvement moves while retaining the best incumbent.
+
+Run the end-to-end smoke test:
+
+```bash
+python -m experiments.run_ppo_suite \
+  --instances D_14S_30P \
+  --profile smoke \
+  --methods stable_mlp attention hierarchical hacipp hacipp_rl_improve
+```
+
+See `KAGGLE_RUN_FA.md` for exact Kaggle commands and
+`METHODS_AND_ABLATIONS_FA.md` for the scientific method map.
+
 Reproducible feasibility-masked reinforcement-learning code for deterministic
 Campaign Itinerary Planning Problem (CIPP) experiments.
 
@@ -21,8 +46,9 @@ See `AUDIT_AND_FIXES.md` for the detailed review.
 ## Important dataset interpretation
 
 The supplied professor script uses `Cities=16`, with index 0 equal to `Rest`.
-That is 15 real visit locations.  The revised paper describes a smallest class
-with 14 states.  The project supports both explicitly:
+That is 15 real visit locations.  In the published instance ID `14S`, the 14
+means 14 visitable states. Idle is an additional internal action, so the action space has 15 actions. The legacy DQN
+pipeline supports both source shapes explicitly:
 
 ```text
 --instance-mode supplied-code   # 15 real locations; exact supplied-script shape
@@ -30,6 +56,9 @@ with 14 states.  The project supports both explicitly:
 ```
 
 Do not compare a `15S_CODE` result directly with a published `14S` table value.
+The advanced PPO pipeline does not use either shape flag: `--instances
+D_14S_30P` directly creates 14 visit actions plus one Idle action over 30 periods, while
+JSON instance files directly supply their own `n` and `H` values.
 
 ## Setup
 
@@ -165,3 +194,7 @@ results/.../
 ```
 
 The reusable Excel template is `results/comparison_table_template.xlsx`.
+
+## v4 benchmark semantics correction
+
+`D_14S_30P` contains 14 visitable states and one additional Idle action. The source row with zero reward and zero cost is validated as Idle and is not counted among the 14 visitable states. Therefore `instance.n = 14` and `instance.num_actions = 15`. Do not use the v3 package, which interpreted `14S` incorrectly.
