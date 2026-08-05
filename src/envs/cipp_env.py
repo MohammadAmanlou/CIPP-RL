@@ -52,6 +52,11 @@ class CIPPEnv:
         self,
         instance: CIPPInstance,
         seed: int | None = None,
+        viability_cache: dict[
+            tuple[int, ...],
+            BoolArray,
+        ]
+        | None = None,
     ) -> None:
         self.instance = instance
         self._rng = np.random.default_rng(
@@ -75,6 +80,7 @@ class CIPPEnv:
         self._done = False
         self._cached_mask_day = -1
         self._cached_action_mask: BoolArray | None = None
+        self._viability_cache = viability_cache
 
     @property
     def day(self) -> int:
@@ -169,6 +175,20 @@ class CIPPEnv:
         The mask is cached for the current day because action selection and
         ``step`` request the same mask repeatedly during DQN training.
         """
+
+        prefix = tuple(self._itinerary)
+
+        if self._viability_cache is not None:
+            shared_mask = self._viability_cache.get(prefix)
+
+            if shared_mask is None:
+                shared_mask = get_viability_mask(
+                    self.instance,
+                    prefix,
+                )
+                self._viability_cache[prefix] = shared_mask.copy()
+
+            return shared_mask.copy()
 
         if self._cached_action_mask is None or self._cached_mask_day != self.day:
             self._cached_action_mask = get_viability_mask(

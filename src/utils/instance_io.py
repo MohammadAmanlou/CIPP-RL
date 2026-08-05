@@ -37,6 +37,7 @@ def instance_to_dict(
         ),
         "gamma": instance.gamma,
         "repeat_count_offset": instance.repeat_count_offset,
+        "repeat_penalty_offset": instance.repeat_penalty_offset,
         "p": instance.p,
     }
 
@@ -109,7 +110,10 @@ def instance_from_dict(
         gamma=data["gamma"],
         repeat_count_offset=data.get(
             "repeat_count_offset",
-            0,
+            data.get(
+                "repeat_penalty_offset",
+                0,
+            ),
         ),
         p=data["p"],
     )

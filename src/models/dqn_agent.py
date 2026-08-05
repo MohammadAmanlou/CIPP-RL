@@ -27,6 +27,7 @@ class DQNConfig:
 
     hidden_dim: int = 256
     learning_rate: float = 3e-4
+    reward_scale: float = 1e-3
     gamma: float = 1.0
     gradient_clip_norm: float = 1.0
     double_dqn: bool = True
@@ -103,6 +104,16 @@ class DQNAgent:
             config
             or DQNConfig()
         )
+
+        if (
+            not np.isfinite(
+                self.config.reward_scale
+            )
+            or self.config.reward_scale <= 0.0
+        ):
+            raise ValueError(
+                "reward_scale must be finite and positive."
+            )
 
         self.device = torch.device(
             device
@@ -443,6 +454,16 @@ class DQNAgent:
             weights_only=False,
         )
 
+        config_payload = dict(
+            payload["config"]
+        )
+
+        if (
+            "double_dqn" not in config_payload
+            and "reward_scale" in config_payload
+        ):
+            config_payload["double_dqn"] = False
+
         agent = cls(
             observation_dim=int(
                 payload[
@@ -455,7 +476,7 @@ class DQNAgent:
                 ]
             ),
             config=DQNConfig(
-                **payload["config"]
+                **config_payload
             ),
             seed=0,
             device=device,

@@ -198,6 +198,7 @@ class CIPPInstance:
 
     p: int = 1
     instance_id: str = "unnamed"
+    repeat_penalty_offset: int | None = None
 
     def __post_init__(self) -> None:
         """Normalize and validate all model parameters."""
@@ -248,6 +249,32 @@ class CIPPInstance:
             raise ValueError(
                 "repeat_count_offset must be either 0 or 1."
             )
+
+        if self.repeat_penalty_offset is not None:
+            self.repeat_penalty_offset = _require_integer(
+                "repeat_penalty_offset",
+                self.repeat_penalty_offset,
+                minimum=0,
+            )
+
+            if self.repeat_penalty_offset not in (0, 1):
+                raise ValueError(
+                    "repeat_penalty_offset must be either 0 or 1."
+                )
+
+            if (
+                self.repeat_count_offset != 0
+                and self.repeat_count_offset
+                != self.repeat_penalty_offset
+            ):
+                raise ValueError(
+                    "repeat_count_offset and repeat_penalty_offset "
+                    "must agree when both are provided."
+                )
+
+            self.repeat_count_offset = self.repeat_penalty_offset
+
+        self.repeat_penalty_offset = self.repeat_count_offset
 
         if self.p != 1:
             raise ValueError(
