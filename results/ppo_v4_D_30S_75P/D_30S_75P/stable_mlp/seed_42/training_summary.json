@@ -1,0 +1,20 @@
+{
+  "instance_id": "D_30S_75P",
+  "method": "stable_mlp",
+  "planned_updates": 400,
+  "completed_updates": 360,
+  "planned_episodes": 25600,
+  "completed_episodes": 23040,
+  "best_checkpoint_update": 240,
+  "best_selection_objective": 276011.013,
+  "selection_metric": "best_of_k",
+  "fixed_validation_seed": 70000042,
+  "early_stopping_enabled": true,
+  "early_stopping_patience": 6,
+  "early_stopping_min_delta": 20.0,
+  "early_stopping_warmup_updates": 160,
+  "stop_reason": "early_stopping_after_6_validation_checks",
+  "elapsed_seconds": 2188.511734275,
+  "best_checkpoint": "/kaggle/working/results/ppo_v4_D_30S_75P/D_30S_75P/stable_mlp/seed_42/checkpoint_best.pt",
+  "last_checkpoint": "/kaggle/working/results/ppo_v4_D_30S_75P/D_30S_75P/stable_mlp/seed_42/checkpoint_last.pt"
+}
