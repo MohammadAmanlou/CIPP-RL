@@ -1,0 +1,21 @@
+{
+  "instance_id": "D_30S_45P",
+  "method": "hacipp_rl_improve",
+  "planned_updates": 200,
+  "completed_updates": 130,
+  "planned_episodes": 1600,
+  "completed_episodes": 1040,
+  "best_checkpoint_update": 10,
+  "best_selection_objective": 70591.38900000001,
+  "selection_metric": "fixed_validation_mean_final_objective",
+  "fixed_validation_start_seed": 80000042,
+  "validation_starts": 4,
+  "early_stopping_enabled": true,
+  "early_stopping_patience": 8,
+  "early_stopping_min_delta": 1.0,
+  "early_stopping_warmup_updates": 60,
+  "stop_reason": "early_stopping_after_8_validation_checks",
+  "elapsed_seconds": 909.475922312,
+  "best_checkpoint": "/kaggle/working/results_30S/ppo_v4_D_30S_45P/D_30S_45P/hacipp_rl_improve/seed_42/checkpoint_best.pt",
+  "last_checkpoint": "/kaggle/working/results_30S/ppo_v4_D_30S_45P/D_30S_45P/hacipp_rl_improve/seed_42/checkpoint_last.pt"
+}
