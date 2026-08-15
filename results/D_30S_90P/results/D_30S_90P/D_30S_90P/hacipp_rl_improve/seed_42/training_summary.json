@@ -1,0 +1,21 @@
+{
+  "instance_id": "D_30S_90P",
+  "method": "hacipp_rl_improve",
+  "planned_updates": 200,
+  "completed_updates": 130,
+  "planned_episodes": 1600,
+  "completed_episodes": 1040,
+  "best_checkpoint_update": 20,
+  "best_selection_objective": 441250.925875,
+  "selection_metric": "fixed_validation_mean_final_objective",
+  "fixed_validation_start_seed": 80000042,
+  "validation_starts": 4,
+  "early_stopping_enabled": true,
+  "early_stopping_patience": 8,
+  "early_stopping_min_delta": 1.0,
+  "early_stopping_warmup_updates": 60,
+  "stop_reason": "early_stopping_after_8_validation_checks",
+  "elapsed_seconds": 1511.2683992559998,
+  "best_checkpoint": "/kaggle/working/democratic_remaining/results/D_30S_90P/D_30S_90P/hacipp_rl_improve/seed_42/checkpoint_best.pt",
+  "last_checkpoint": "/kaggle/working/democratic_remaining/results/D_30S_90P/D_30S_90P/hacipp_rl_improve/seed_42/checkpoint_last.pt"
+}

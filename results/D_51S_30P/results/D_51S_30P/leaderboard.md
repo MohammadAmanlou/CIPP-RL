@@ -1,0 +1,10 @@
+| instance_id | method | objective | improvement_over_published_bfs_percent | feasible | runtime_seconds |
+| --- | --- | --- | --- | --- | --- |
+| D_51S_30P | hacipp_rl_improve_30 | 34934.703500 | -0.812857 | True | 113.762504 |
+| D_51S_30P | hacipp_sgbs_64 | 34893.247500 | -0.930560 | True | 104.918663 |
+| D_51S_30P | hacipp_best_of_128 | 34891.247500 | -0.936238 | True | 5.062541 |
+| D_51S_30P | hacipp_greedy | 34649.008500 | -1.624007 | True | 0.187173 |
+| D_51S_30P | hierarchical_best_of_128 | 34524.895250 | -1.976391 | True | 5.118029 |
+| D_51S_30P | hierarchical_sgbs_64 | 34524.895250 | -1.976391 | True | 113.833848 |
+| D_51S_30P | hierarchical_greedy | 34375.348000 | -2.400988 | True | 0.169880 |
+| D_51S_30P | greedy_exact_increment | 31594.233750 | -10.297170 | True | 0.023676 |
