@@ -1,0 +1,18 @@
+{
+  "instance": "D_51S_60P",
+  "methods": [
+    "hacipp",
+    "hacipp_rl_improve"
+  ],
+  "profile": "full",
+  "seed": 42,
+  "device": "cuda",
+  "construction_early_stopping_patience": 4,
+  "construction_early_stopping_min_delta": 2.0,
+  "construction_early_stopping_warmup_updates": 100,
+  "improvement_early_stopping_patience": 5,
+  "improvement_early_stopping_min_delta": 2.0,
+  "improvement_early_stopping_warmup_updates": 50,
+  "log_every_episodes": 128,
+  "resume": true
+}
