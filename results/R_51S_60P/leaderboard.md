@@ -1,0 +1,16 @@
+| instance_id | method | objective | improvement_over_published_bfs_percent | feasible | runtime_seconds |
+| --- | --- | --- | --- | --- | --- |
+| R_51S_60P | hacipp_rl_improve_30 | 227011.422500 | -1.032168 | True | 389.748078 |
+| R_51S_60P | hacipp_best_of_128 | 226951.056750 | -1.058485 | True | 10.857104 |
+| R_51S_60P | hacipp_sgbs_64 | 226765.072750 | -1.139567 | True | 375.420825 |
+| R_51S_60P | hierarchical_sgbs_64 | 226691.971500 | -1.171436 | True | 388.904207 |
+| R_51S_60P | hierarchical_best_of_128 | 226619.513500 | -1.203025 | True | 10.936276 |
+| R_51S_60P | attention_sgbs_64 | 226333.934500 | -1.327526 | True | 380.596666 |
+| R_51S_60P | attention_greedy | 226307.762000 | -1.338936 | True | 0.338162 |
+| R_51S_60P | hierarchical_greedy | 226298.358500 | -1.343036 | True | 0.359673 |
+| R_51S_60P | attention_best_of_128 | 226278.242500 | -1.351805 | True | 10.607951 |
+| R_51S_60P | hacipp_greedy | 226087.910500 | -1.434782 | True | 0.357426 |
+| R_51S_60P | stable_mlp_best_of_128 | 225789.918250 | -1.564695 | True | 10.208355 |
+| R_51S_60P | stable_mlp_sgbs_64 | 225317.122250 | -1.770815 | True | 377.664368 |
+| R_51S_60P | stable_mlp_greedy | 224415.419750 | -2.163921 | True | 0.174637 |
+| R_51S_60P | greedy_exact_increment | 208747.683000 | -8.994423 | True | 0.053423 |

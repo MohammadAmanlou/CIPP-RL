@@ -1,0 +1,117 @@
+{
+  "arguments": {
+    "instances": [
+      "R_51S_30P"
+    ],
+    "instance_files": [],
+    "methods": [
+      "stable_mlp",
+      "attention",
+      "hierarchical",
+      "hacipp",
+      "hacipp_rl_improve"
+    ],
+    "profile": "full",
+    "objective_variant": "professor_code",
+    "budget_mode": "auto",
+    "active_search_mode": "full",
+    "initial_checkpoint": null,
+    "data_directory": ".",
+    "output_directory": "/kaggle/working/R_51S_fast_scientific/results/R_51S_30P",
+    "seed": 42,
+    "device": "cuda",
+    "resume": true,
+    "benchmark_only": false,
+    "run_gurobi": false,
+    "run_gurobi_warm_start": false,
+    "gurobi_time_limit": 3600.0,
+    "construction_updates": 320,
+    "episodes_per_update": null,
+    "improvement_updates": 100,
+    "validation_metric": "best_of_k",
+    "construction_early_stopping_patience": 3,
+    "construction_early_stopping_min_delta": 3.4855,
+    "construction_early_stopping_warmup_updates": 80,
+    "improvement_early_stopping_patience": 3,
+    "improvement_early_stopping_min_delta": 1.74275,
+    "improvement_early_stopping_warmup_updates": 20,
+    "disable_vectorized_rollouts": false,
+    "final_rollouts": 128,
+    "beam_width": 64,
+    "log_every_episodes": 64
+  },
+  "resolved_device": "cuda",
+  "profile": {
+    "construction": {
+      "updates": 320,
+      "episodes_per_update": 64,
+      "pomo_group_size": 16,
+      "validation_interval": 10,
+      "validation_rollouts": 16,
+      "validation_metric": "best_of_k",
+      "elite_capacity": 64,
+      "self_imitation_interval": 10,
+      "self_imitation_elites": 8,
+      "self_imitation_epochs": 1,
+      "early_stopping_patience": 3,
+      "early_stopping_min_delta": 3.4855,
+      "early_stopping_warmup_updates": 80,
+      "history_flush_interval": 5,
+      "vectorized_rollouts": true
+    },
+    "improvement_training": {
+      "updates": 100,
+      "episodes_per_update": 8,
+      "construction_rollouts": 4,
+      "validation_interval": 5,
+      "validation_starts": 3,
+      "validation_construction_rollouts": 3,
+      "early_stopping_patience": 3,
+      "early_stopping_min_delta": 1.74275,
+      "early_stopping_warmup_updates": 20,
+      "history_flush_interval": 5
+    },
+    "improvement": {
+      "hidden_dim": 128,
+      "learning_rate": 0.0001,
+      "update_epochs": 4,
+      "minibatch_size": 256,
+      "clip_epsilon": 0.2,
+      "value_clip_epsilon": 0.2,
+      "value_loss_coefficient": 0.5,
+      "entropy_coefficient": 0.01,
+      "target_kl": 0.02,
+      "gradient_clip_norm": 0.5,
+      "max_candidates": 96,
+      "max_moves": 30,
+      "discount_factor": 1.0,
+      "gae_lambda": 1.0
+    },
+    "final_rollouts": 128,
+    "beam_width": 64,
+    "beam_expansion": 4
+  },
+  "scientific_contract": {
+    "idle_action": 0,
+    "dimension_source": "each instance (instance ID or JSON n/H fields)",
+    "S_semantics": "number_of_visitable_states_excluding_idle",
+    "action_count_rule": "instance.n = S; total actions = S + 1; action 0 is Idle",
+    "gurobi_role": "benchmark_only",
+    "main_method_is_rl_only": true
+  },
+  "instances": [
+    {
+      "instance_id": "R_51S_30P",
+      "benchmark_state_count_excluding_idle": 51,
+      "visit_location_count": 51,
+      "action_count_including_idle": 52,
+      "idle_action": 0,
+      "horizon": 30,
+      "table5_reference": {
+        "bfs": 34855.0,
+        "optimality_gap_percent": 0.0,
+        "runtime_seconds": 1385.8
+      }
+    }
+  ]
+}
