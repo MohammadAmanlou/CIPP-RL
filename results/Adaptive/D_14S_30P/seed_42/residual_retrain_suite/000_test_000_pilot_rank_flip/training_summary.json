@@ -1,0 +1,34 @@
+{
+  "label": "R_static_init_suite",
+  "best_validation": 14360.628499999999,
+  "updates_completed": 50,
+  "elapsed_seconds": 31.51063293299967,
+  "fixed_prefix": [
+    11,
+    3,
+    11,
+    3,
+    10,
+    0,
+    0,
+    10,
+    11,
+    5,
+    5,
+    6,
+    0,
+    0,
+    0
+  ],
+  "config": {
+    "updates": 50,
+    "episodes_per_update": 32,
+    "validation_interval": 10,
+    "validation_rollouts": 16,
+    "early_stopping_patience": 4,
+    "early_stopping_warmup_updates": 15,
+    "early_stopping_min_delta": 1.0,
+    "learning_rate_scale": 0.2,
+    "update_epochs": 2
+  }
+}

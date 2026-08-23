@@ -1,13 +1,19 @@
 {
-  "version": "V6",
-  "instance": "D_14S_30P",
-  "seed": 42,
-  "device": "cuda",
-  "torch_version": "2.10.0+cu128",
-  "cuda_available": true,
-  "gpu": "Tesla T4",
-  "python": "3.12.13",
-  "static_checkpoint": "results/Static/D_14S_30P/D_14S_30P/attention/seed_42/checkpoint_best.pt",
+  "best_validation": 16462.672890668073,
+  "updates_completed": 270,
+  "elapsed_seconds": 776.0196930230001,
+  "config": {
+    "updates": 400,
+    "episodes_per_update": 96,
+    "validation_interval": 10,
+    "validation_scenarios": 16,
+    "validation_rollouts_per_scenario": 16,
+    "early_stopping_patience": 8,
+    "early_stopping_warmup_updates": 120,
+    "early_stopping_min_delta": 2.0,
+    "learning_rate_scale": 0.1,
+    "update_epochs": 2
+  },
   "curriculum": {
     "version": "rich_v6",
     "timing": "random integer switch day across approximately days 4..26 for H=30",
@@ -51,16 +57,5 @@
       "middle": "full single-shock mixture + some multi-shock",
       "late": "more concentrated/extreme and multi-shock episodes"
     }
-  },
-  "heldout_suite_count": 100,
-  "heldout_seed": 260824,
-  "main_rollouts": 512,
-  "suite_rollouts": 64,
-  "information_safety": {
-    "future_shock_identity_hidden_before_realization": true,
-    "no_pre_shock_best_of_k_hindsight": true,
-    "frozen_B_D_use_parallel_static_observation_env": true,
-    "multi_shocks_are_training_only_in_v6": true,
-    "heldout_gurobi_suite_is_single_shock_only": true
   }
 }
