@@ -118,6 +118,41 @@ def rank_flip_scenario(
     )
 
 
+
+def rank_flip_scenario_at_day(
+    instance: CIPPInstance,
+    *,
+    switch_day: int,
+    boost: float = 2.25,
+    suppress: float = 0.55,
+    scenario_id: str = "rank_flip",
+) -> ShockScenario:
+    """Held-out deterministic rank-flip shock at an exact decision boundary.
+
+    ``switch_day`` is the number of fully executed periods before the shock.
+    Example: ``switch_day=10`` means days 1..10 are executed under the old
+    context, the shock is observed between days 10 and 11, and days 11..H use
+    the new reward multipliers.
+    """
+
+    switch_day = int(switch_day)
+    if not 1 <= switch_day < instance.H:
+        raise ValueError(
+            f"switch_day must satisfy 1 <= switch_day < H; "
+            f"got {switch_day}, H={instance.H}"
+        )
+    order = np.argsort(instance.rewards)
+    group = max(instance.n // 3, 1)
+    multiplier = np.ones(instance.n, dtype=np.float64)
+    multiplier[order[:group]] = float(boost)
+    multiplier[order[-group:]] = float(suppress)
+    return ShockScenario(
+        switch_day=switch_day,
+        post_multiplier=multiplier,
+        scenario_id=scenario_id,
+    )
+
+
 def sample_training_scenario(
     instance: CIPPInstance,
     rng: np.random.Generator,

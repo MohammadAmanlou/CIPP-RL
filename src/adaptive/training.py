@@ -10,6 +10,8 @@ import time
 import numpy as np
 
 from src.advanced.ppo import AdvancedPPOAgent, AdvancedPPOBatch, compute_episode_gae
+from src.advanced.features import StructuredFeatureBuilder
+from src.envs import CIPPEnv
 from src.adaptive.context import (
     AdaptiveCIPPEnv,
     AdaptiveFeatureBuilder,
@@ -115,6 +117,49 @@ def _collect_batch(
     }
 
 
+
+def _replay_static_prefix(
+    instance,
+    prefix: tuple[int, ...],
+    *,
+    seed: int,
+) -> CIPPEnv:
+    """Replay realized actions in a genuinely static CIPP environment.
+
+    This environment is used ONLY for B/D policy observations.  It never sees
+    shock-adjusted rewards, adaptive cumulative reward, adaptive exposure, or
+    any other post-shock context.  Because shocks do not alter feasibility,
+    stepping it in lockstep with AdaptiveCIPPEnv is valid.
+    """
+    env = CIPPEnv(instance, seed=seed)
+    env.reset(seed=seed)
+    for action in prefix:
+        env.step(int(action))
+    return env
+
+
+def _assert_lockstep_feasibility(
+    static_env: CIPPEnv,
+    adaptive_env: AdaptiveCIPPEnv,
+) -> None:
+    """Fail loudly if the paired static/adaptive histories ever diverge."""
+    if static_env.day != adaptive_env.day:
+        raise RuntimeError(
+            f"paired environments are on different days: "
+            f"{static_env.day} vs {adaptive_env.day}"
+        )
+    if not np.array_equal(static_env.itinerary, adaptive_env.itinerary):
+        raise RuntimeError("paired environments have different realized itineraries")
+    if not np.array_equal(
+        static_env.get_action_mask(),
+        adaptive_env.get_action_mask(),
+    ):
+        raise RuntimeError(
+            "shock unexpectedly changed feasibility/action masks; "
+            "clean static baseline requires identical constraints"
+        )
+
+
 def residual_best_of_k(
     agent: AdvancedPPOAgent,
     *,
@@ -124,57 +169,98 @@ def residual_best_of_k(
     seed: int,
     context_aware: bool,
 ) -> dict[str, object]:
-    """Sample only the suffix and select with the adaptive objective."""
+    """Sample only the suffix and select using the true adaptive objective.
+
+    For Method C (``context_aware=True``), the policy observes AdaptiveCIPPEnv.
+
+    For frozen baselines B/D (``context_aware=False``), policy observations are
+    built from a SEPARATE static CIPPEnv replayed with exactly the same actions.
+    The adaptive environment is used only for scoring.  This removes the V3
+    leakage through global ``current_objective`` and any other adaptive state.
+    """
 
     if rollouts < 1:
         raise ValueError("rollouts must be positive")
     started = time.perf_counter()
     rngs = [np.random.default_rng(seed + i) for i in range(rollouts)]
-    envs = [
+
+    score_envs = [
         replay_prefix(agent.instance, scenario, prefix, seed=seed + i)
         for i in range(rollouts)
     ]
 
     if context_aware:
-        builders = [agent.feature_builder] * rollouts
+        observation_envs = score_envs
+        static_builder = None
     else:
-        # Static feature builder deliberately hides the new reward context.
-        static_builder = AdaptiveFeatureBuilder(agent.instance)
-        # We will feed a normal CIPP-style feature state by temporarily building
-        # with the parent method explicitly in _static_state below.
-        builders = [static_builder] * rollouts
+        observation_envs = [
+            _replay_static_prefix(
+                agent.instance,
+                prefix,
+                seed=seed + i,
+            )
+            for i in range(rollouts)
+        ]
+        static_builder = StructuredFeatureBuilder(agent.instance)
+        for static_env, adaptive_env in zip(observation_envs, score_envs):
+            _assert_lockstep_feasibility(static_env, adaptive_env)
 
     while True:
-        active = [i for i, env in enumerate(envs) if not env.done]
+        active = [i for i, env in enumerate(score_envs) if not env.done]
         if not active:
             break
 
         if context_aware:
-            states = [agent.feature_builder.build(envs[i]) for i in active]
-        else:
-            # Build exactly the old static observation: call parent implementation.
             states = [
-                super(AdaptiveFeatureBuilder, builders[i]).build(envs[i])
+                agent.feature_builder.build(observation_envs[i])
+                for i in active
+            ]
+        else:
+            states = [
+                static_builder.build(observation_envs[i])
                 for i in active
             ]
 
         probs, _ = agent.batch_probabilities_and_values(states)
         for j, idx in enumerate(active):
             state = states[j]
-            row = np.where(state.action_mask, np.clip(probs[j], 0.0, None), 0.0)
+            row = np.where(
+                state.action_mask,
+                np.clip(probs[j], 0.0, None),
+                0.0,
+            )
             total = float(row.sum())
             if total <= 0.0:
                 raise RuntimeError("zero probability on every feasible action")
             row /= total
-            action = int(rngs[idx].choice(agent.instance.num_actions, p=row))
-            envs[idx].step(action)
+            action = int(
+                rngs[idx].choice(agent.instance.num_actions, p=row)
+            )
 
-    best = max(envs, key=lambda e: e.cumulative_reward)
+            # Same realized action in both worlds:
+            # - observation_env stays static for B/D policy input
+            # - score_env uses the true shocked objective
+            if not context_aware:
+                observation_envs[idx].step(action)
+            score_envs[idx].step(action)
+
+            if not context_aware:
+                _assert_lockstep_feasibility(
+                    observation_envs[idx],
+                    score_envs[idx],
+                )
+
+    best = max(score_envs, key=lambda e: e.cumulative_reward)
     return {
         "objective": float(best.cumulative_reward),
         "itinerary": best.itinerary.tolist(),
         "runtime_seconds": float(time.perf_counter() - started),
         "rollouts": int(rollouts),
+        "observation_semantics": (
+            "adaptive_context"
+            if context_aware
+            else "strict_static_parallel_env_no_shock_leakage"
+        ),
     }
 
 
@@ -186,24 +272,163 @@ def residual_greedy(
     seed: int,
     context_aware: bool,
 ) -> dict[str, object]:
-    started = time.perf_counter()
-    env = replay_prefix(agent.instance, scenario, prefix, seed=seed)
-    static_builder = AdaptiveFeatureBuilder(agent.instance)
+    """Greedy suffix inference with leakage-free frozen baselines."""
 
-    while not env.done:
+    started = time.perf_counter()
+    score_env = replay_prefix(
+        agent.instance,
+        scenario,
+        prefix,
+        seed=seed,
+    )
+
+    if context_aware:
+        observation_env = score_env
+        static_builder = None
+    else:
+        observation_env = _replay_static_prefix(
+            agent.instance,
+            prefix,
+            seed=seed,
+        )
+        static_builder = StructuredFeatureBuilder(agent.instance)
+        _assert_lockstep_feasibility(observation_env, score_env)
+
+    while not score_env.done:
         if context_aware:
-            state = agent.feature_builder.build(env)
+            state = agent.feature_builder.build(observation_env)
         else:
-            state = super(AdaptiveFeatureBuilder, static_builder).build(env)
-        action, _, _ = agent.select_action(state, deterministic=True)
-        env.step(action)
+            state = static_builder.build(observation_env)
+
+        action, _, _ = agent.select_action(
+            state,
+            deterministic=True,
+        )
+
+        if not context_aware:
+            observation_env.step(action)
+        score_env.step(action)
+
+        if not context_aware:
+            _assert_lockstep_feasibility(observation_env, score_env)
 
     return {
-        "objective": float(env.cumulative_reward),
-        "itinerary": env.itinerary.tolist(),
+        "objective": float(score_env.cumulative_reward),
+        "itinerary": score_env.itinerary.tolist(),
         "runtime_seconds": float(time.perf_counter() - started),
         "rollouts": 1,
+        "observation_semantics": (
+            "adaptive_context"
+            if context_aware
+            else "strict_static_parallel_env_no_shock_leakage"
+        ),
     }
+
+
+
+def build_anticipatory_prefix(
+    agent: AdvancedPPOAgent,
+    *,
+    scenario: ShockScenario,
+    seed: int,
+    deterministic: bool = True,
+) -> tuple[int, ...]:
+    """Generate Method C's realized pre-shock history without future leakage.
+
+    The adaptive policy starts at day 1 and controls every pre-shock action.
+    Before ``scenario.switch_day`` the environment exposes multiplier 1 for all
+    locations, so the policy cannot know which locations will later be boosted
+    or suppressed.  It can only exploit anticipatory behavior learned from the
+    training distribution (for example, preserving budget/visit optionality).
+
+    No best-of-K or hindsight selection is allowed before the shock.
+    """
+
+    scenario.validate(agent.instance)
+    env = AdaptiveCIPPEnv(agent.instance, scenario, seed=seed)
+    env.reset(seed=seed)
+
+    prefix: list[int] = []
+    while env.day < scenario.switch_day:
+        state = agent.feature_builder.build(env)
+        action, _, _ = agent.select_action(
+            state,
+            deterministic=deterministic,
+        )
+        env.step(int(action))
+        prefix.append(int(action))
+
+    return tuple(prefix)
+
+
+def anticipatory_then_residual_best_of_k(
+    agent: AdvancedPPOAgent,
+    *,
+    scenario: ShockScenario,
+    rollouts: int,
+    seed: int,
+    deterministic_prefix: bool = True,
+) -> dict[str, object]:
+    """Fair online E2E Method C: anticipate first, adapt after the shock.
+
+    Phase 1 (before shock):
+        One realized prefix is generated online without knowledge of the future
+        shock identity.  Critically, there is NO best-of-K prefix selection.
+
+    Phase 2 (after shock):
+        The realized shock is now observable, so Method C may sample K suffixes
+        from the fixed realized prefix and select the best adaptive continuation.
+
+    This matches the information pattern of a real deployment and makes the
+    comparison to two-stage Gurobi scientifically fair.
+    """
+
+    prefix = build_anticipatory_prefix(
+        agent,
+        scenario=scenario,
+        seed=seed,
+        deterministic=deterministic_prefix,
+    )
+    result = residual_best_of_k(
+        agent,
+        scenario=scenario,
+        prefix=prefix,
+        rollouts=rollouts,
+        seed=seed + 10_000_000,
+        context_aware=True,
+    )
+    result["prefix"] = list(prefix)
+    result["prefix_source"] = "method_c_anticipatory_no_future_shock_info"
+    result["pre_shock_hindsight_selection"] = False
+    return result
+
+
+def anticipatory_then_greedy(
+    agent: AdvancedPPOAgent,
+    *,
+    scenario: ShockScenario,
+    seed: int,
+    deterministic_prefix: bool = True,
+) -> dict[str, object]:
+    """Fair E2E Method C with greedy post-shock continuation."""
+
+    prefix = build_anticipatory_prefix(
+        agent,
+        scenario=scenario,
+        seed=seed,
+        deterministic=deterministic_prefix,
+    )
+    result = residual_greedy(
+        agent,
+        scenario=scenario,
+        prefix=prefix,
+        seed=seed + 10_000_000,
+        context_aware=True,
+    )
+    result["prefix"] = list(prefix)
+    result["prefix_source"] = "method_c_anticipatory_no_future_shock_info"
+    result["pre_shock_hindsight_selection"] = False
+    return result
 
 
 def _fixed_validation(
@@ -213,24 +438,32 @@ def _fixed_validation(
     scenario_count: int,
     rollouts_per_scenario: int,
 ) -> float:
+    """Validate the actual deployment semantics, not a clairvoyant K-sample oracle.
+
+    Earlier versions sampled K complete trajectories from day 1 and selected the
+    best after seeing the realized shock.  That can reward lucky pre-shock
+    prefixes in hindsight.  V5 instead generates exactly one deterministic
+    anticipatory prefix without future shock information and only applies
+    best-of-K search after the shock becomes observable.
+    """
+
     rng = np.random.default_rng(scenario_seed)
     objectives = []
-    # Fixed validation shocks are random but deterministic across updates.
     scenarios = [
         sample_training_scenario(agent.instance, rng)
         for _ in range(scenario_count)
     ]
     for k, scenario in enumerate(scenarios):
-        result = residual_best_of_k(
+        result = anticipatory_then_residual_best_of_k(
             agent,
             scenario=scenario,
-            prefix=(),
             rollouts=rollouts_per_scenario,
             seed=scenario_seed + 100_000 * (k + 1),
-            context_aware=True,
+            deterministic_prefix=True,
         )
         objectives.append(float(result["objective"]))
     return float(np.mean(objectives))
+
 
 
 def train_method_c(
