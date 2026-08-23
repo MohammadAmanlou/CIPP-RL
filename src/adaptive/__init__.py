@@ -1,14 +1,21 @@
-"""Adaptive CIPP components for Method C."""
+"""Adaptive CIPP components for Method C V6."""
 
 from .context import (
     AdaptiveCIPPEnv,
     AdaptiveFeatureBuilder,
+    AdaptiveScenario,
+    MultiShockScenario,
+    RICH_CURRICULUM_DESCRIPTION,
     ShockScenario,
     evaluate_adaptive_itinerary,
+    generate_heldout_single_shock_suite,
+    generate_validation_scenarios,
     rank_flip_scenario,
     rank_flip_scenario_at_day,
     replay_prefix,
     sample_training_scenario,
+    scenario_from_dict,
+    scenario_to_dict,
 )
 from .gurobi import (
     solve_adaptive_gurobi,
@@ -17,31 +24,42 @@ from .gurobi import (
 )
 from .training import (
     AdaptiveTrainingConfig,
+    ResidualRetrainingConfig,
     residual_best_of_k,
     residual_greedy,
     build_anticipatory_prefix,
     anticipatory_then_residual_best_of_k,
     anticipatory_then_greedy,
+    train_fixed_prefix_residual,
     train_method_c,
 )
 
 __all__ = [
     "AdaptiveCIPPEnv",
     "AdaptiveFeatureBuilder",
+    "AdaptiveScenario",
+    "MultiShockScenario",
+    "RICH_CURRICULUM_DESCRIPTION",
     "ShockScenario",
     "evaluate_adaptive_itinerary",
+    "generate_heldout_single_shock_suite",
+    "generate_validation_scenarios",
     "rank_flip_scenario",
     "rank_flip_scenario_at_day",
     "replay_prefix",
     "sample_training_scenario",
+    "scenario_from_dict",
+    "scenario_to_dict",
     "solve_adaptive_gurobi",
     "solve_two_stage_adaptive_gurobi",
     "solve_clairvoyant_adaptive_gurobi",
     "AdaptiveTrainingConfig",
+    "ResidualRetrainingConfig",
     "residual_best_of_k",
     "residual_greedy",
     "build_anticipatory_prefix",
     "anticipatory_then_residual_best_of_k",
     "anticipatory_then_greedy",
+    "train_fixed_prefix_residual",
     "train_method_c",
 ]
