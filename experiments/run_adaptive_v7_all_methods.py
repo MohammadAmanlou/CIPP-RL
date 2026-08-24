@@ -96,7 +96,7 @@ def _args() -> argparse.Namespace:
     p.add_argument(
         "--output-directory",
         type=Path,
-        default=Path("results/AdaptiveV7"),
+        default=Path("results/Adaptive"),
     )
     p.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     p.add_argument("--seed", type=int, default=42)
@@ -273,8 +273,28 @@ def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
         writer.writerows(rows)
 
 
+def _json_default(value):
+    """Serialize filesystem/numpy values that appear in experiment metadata."""
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, np.integer):
+        return int(value)
+    if isinstance(value, np.floating):
+        return float(value)
+    if isinstance(value, np.bool_):
+        return bool(value)
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    raise TypeError(
+        f"Object of type {value.__class__.__name__} is not JSON serializable"
+    )
+
+
 def _json(path: Path, payload) -> None:
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, default=_json_default) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _selection_value(summary_path: Path) -> float:
@@ -295,7 +315,7 @@ def _select_best_restart(root: Path, count: int) -> tuple[Path, dict[str, object
             candidates.append(
                 {
                     "restart": j,
-                    "checkpoint": checkpoint,
+                    "checkpoint": str(checkpoint),
                     "selection_value": _selection_value(summary),
                     "summary": json.loads(summary.read_text(encoding="utf-8")),
                 }
@@ -319,7 +339,7 @@ def _select_best_restart(root: Path, count: int) -> tuple[Path, dict[str, object
             ],
         },
     )
-    return Path(best["checkpoint"]), best
+    return Path(str(best["checkpoint"])), best
 
 
 def _adaptive_config_c(a) -> AdaptiveTrainingConfig:

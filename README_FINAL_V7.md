@@ -216,7 +216,7 @@ The notebook:
 
 After copying the Kaggle folder to:
 
-`results/AdaptiveV7/D_14S_30P/seed_42`
+`results/Adaptive/D_14S_30P/seed_42`
 
 run:
 
@@ -224,7 +224,7 @@ run:
 python .\experiments\run_v7_gurobi_all_methods.py `
   --instance D_14S_30P `
   --data-directory . `
-  --rl-output-directory results\AdaptiveV7 `
+  --rl-output-directory results\Adaptive `
   --seed 42 `
   --time-limit 3600 `
   --mip-gap 0 `

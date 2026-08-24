@@ -52,7 +52,7 @@ def _args():
     p.add_argument(
         "--rl-output-directory",
         type=Path,
-        default=Path("results/AdaptiveV7"),
+        default=Path("results/Adaptive"),
     )
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--time-limit", type=float, default=3600.0)
@@ -69,8 +69,27 @@ def _args():
     return p.parse_args()
 
 
+def _json_default(value):
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, np.integer):
+        return int(value)
+    if isinstance(value, np.floating):
+        return float(value)
+    if isinstance(value, np.bool_):
+        return bool(value)
+    if isinstance(value, np.ndarray):
+        return value.tolist()
+    raise TypeError(
+        f"Object of type {value.__class__.__name__} is not JSON serializable"
+    )
+
+
 def _json(path: Path, payload) -> None:
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, indent=2, default=_json_default) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _write_csv(path: Path, rows: list[dict[str, object]]) -> None:
