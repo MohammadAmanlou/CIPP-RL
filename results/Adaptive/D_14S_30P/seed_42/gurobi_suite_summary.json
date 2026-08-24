@@ -1,0 +1,320 @@
+{
+  "instance": "D_14S_30P",
+  "scenario_count": 100,
+  "static_initial_gurobi": {
+    "instance_id": "D_14S_30P",
+    "solver": "gurobi",
+    "status": "optimal",
+    "itinerary": [
+      11,
+      11,
+      10,
+      3,
+      3,
+      0,
+      0,
+      11,
+      10,
+      10,
+      5,
+      6,
+      0,
+      0,
+      0,
+      0,
+      13,
+      6,
+      6,
+      5,
+      3,
+      0,
+      0,
+      5,
+      10,
+      10,
+      3,
+      3,
+      11,
+      11
+    ],
+    "objective": 15555.198750000001,
+    "best_bound": 15555.198750000003,
+    "optimality_gap_percent": 0.0,
+    "runtime_seconds": 12.801912099996116,
+    "proven_optimal": true,
+    "feasible": true,
+    "violations": []
+  },
+  "total_suite_gurobi_seconds_excluding_static_initial": 1814.690924800001,
+  "all_two_stage_proven_optimal": true,
+  "all_method_c_prefix_oracles_proven_optimal": true,
+  "all_clairvoyant_proven_optimal": true,
+  "method_c_vs_two_stage": {
+    "win_count": 1,
+    "win_rate": 0.01,
+    "final_advantage_percent": {
+      "mean": -2.5199771384938114,
+      "median": -1.7363297960074764,
+      "std": 2.292406042650443,
+      "min": -9.826525793350836,
+      "max": 0.12751236265930324
+    }
+  },
+  "anticipatory_prefix_value": {
+    "prefix_win_count": 23,
+    "prefix_win_rate": 0.23,
+    "prefix_advantage_percent": {
+      "mean": -0.38304056105020856,
+      "median": -0.27360627584394887,
+      "std": 0.8452898513942014,
+      "min": -2.773398394114142,
+      "max": 3.1125014280779952
+    }
+  },
+  "post_shock_adaptation": {
+    "adaptation_gap_percent": {
+      "mean": 2.1386444199897365,
+      "median": 1.1827315993589715,
+      "std": 2.423203798829771,
+      "min": 0.0,
+      "max": 9.686259562392447
+    }
+  },
+  "clairvoyant_gap_percent": {
+    "mean": 4.366405219173486,
+    "median": 3.3149888031485713,
+    "std": 3.786118440572431,
+    "min": 0.1940625753721586,
+    "max": 13.299400684372221
+  },
+  "by_family": {
+    "boost_only": {
+      "count": 12,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -3.1524752885301073,
+        "median": -2.5212632494854974,
+        "std": 2.043471335580663,
+        "min": -6.350792922796641,
+        "max": -0.342608325824405
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.06708716770384764,
+        "median": -0.1095621111197435,
+        "std": 1.0312372161644419,
+        "min": -1.997958441056254,
+        "max": 1.8993789280119202
+      }
+    },
+    "concentrated": {
+      "count": 11,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -1.8849556055029153,
+        "median": -1.5931876386245711,
+        "std": 1.3579595201895043,
+        "min": -4.419102893776529,
+        "max": -0.42381789414529336
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.22029633726046222,
+        "median": -0.203519967983074,
+        "std": 0.5784836932135718,
+        "min": -1.1548550126506714,
+        "max": 0.8594369958818001
+      }
+    },
+    "distributed": {
+      "count": 11,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -1.5826077826966873,
+        "median": -1.4566029526119166,
+        "std": 0.605605359331867,
+        "min": -3.0120103020958937,
+        "max": -0.9363080295109446
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.41674902141126824,
+        "median": -0.23806375693569293,
+        "std": 0.7258561066584612,
+        "min": -1.9584756998406703,
+        "max": 0.4327929966264867
+      }
+    },
+    "heldout_rank_flip": {
+      "count": 1,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -4.357268716525882,
+        "median": -4.357268716525882,
+        "std": 0.0,
+        "min": -4.357268716525882,
+        "max": -4.357268716525882
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.6368082301658061,
+        "median": -0.6368082301658061,
+        "std": 0.0,
+        "min": -0.6368082301658061,
+        "max": -0.6368082301658061
+      }
+    },
+    "mixed": {
+      "count": 12,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -4.845767801621126,
+        "median": -4.441103564115214,
+        "std": 2.8971080867497663,
+        "min": -9.767607287155222,
+        "max": -0.3518929747954043
+      },
+      "prefix_advantage_percent": {
+        "mean": 0.04205187454960102,
+        "median": -0.13203453862534845,
+        "std": 0.6319773341431174,
+        "min": -0.8990848921807811,
+        "max": 1.5330822799516335
+      }
+    },
+    "no_shock": {
+      "count": 12,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -0.49717301104879974,
+        "median": -0.49717301104879985,
+        "std": 0.03378934647170226,
+        "min": -0.5309623575205021,
+        "max": -0.4633836645770976
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.3448857679601543,
+        "median": -0.3222507844845084,
+        "std": 0.15340989310010344,
+        "min": -0.5309623575205021,
+        "max": -0.10152232866841036
+      }
+    },
+    "ood_budget_reallocation": {
+      "count": 6,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -1.9528854377750322,
+        "median": -2.2632969611523306,
+        "std": 0.5960425705757345,
+        "min": -2.5658192593128115,
+        "max": -0.9168173125354067
+      },
+      "prefix_advantage_percent": {
+        "mean": -1.2033446472230829,
+        "median": -1.1675271856047262,
+        "std": 1.0786977531310749,
+        "min": -2.4835773275405013,
+        "max": -0.07445505501525762
+      }
+    },
+    "ood_extreme_single_boost": {
+      "count": 6,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -1.846198710975506,
+        "median": -1.1720013427038851,
+        "std": 1.1009459304688838,
+        "min": -3.463846745578922,
+        "max": -0.867882539916312
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.37774763853220333,
+        "median": -0.34324331481226994,
+        "std": 0.20616258535475557,
+        "min": -0.6595718765265419,
+        "max": -0.1567523043169355
+      }
+    },
+    "ood_high_cost_boost": {
+      "count": 6,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -6.219404125317964,
+        "median": -5.659322821210268,
+        "std": 2.880648599815497,
+        "min": -9.826525793350836,
+        "max": -2.34629712289917
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.8974134429245693,
+        "median": -0.7954604551435895,
+        "std": 0.6546671970881489,
+        "min": -1.7287774521725063,
+        "max": -0.22721194145182408
+      }
+    },
+    "ood_rank_flip": {
+      "count": 6,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -2.043703061974557,
+        "median": -1.4261593389112655,
+        "std": 1.5213110797643812,
+        "min": -4.56954407514691,
+        "max": -0.4597949173197115
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.5826105765337285,
+        "median": -0.5508373125630516,
+        "std": 0.553425551105981,
+        "min": -1.7111981749947913,
+        "max": -0.049821950095079844
+      }
+    },
+    "ood_top_reward_collapse": {
+      "count": 6,
+      "method_c_win_rate": 0.0,
+      "final_advantage_percent": {
+        "mean": -3.21204081771613,
+        "median": -3.0225914636580677,
+        "std": 1.2795701586013426,
+        "min": -5.137971131719646,
+        "max": -1.7781068783380918
+      },
+      "prefix_advantage_percent": {
+        "mean": -1.0445869384968705,
+        "median": -0.8548704146802903,
+        "std": 0.8285861147028287,
+        "min": -2.773398394114142,
+        "max": -0.07464157814591929
+      }
+    },
+    "suppress_only": {
+      "count": 11,
+      "method_c_win_rate": 0.09090909090909091,
+      "final_advantage_percent": {
+        "mean": -1.4460783387003708,
+        "median": -0.8499503128380864,
+        "std": 1.5802874427193874,
+        "min": -5.713456169769908,
+        "max": 0.12751236265930324
+      },
+      "prefix_advantage_percent": {
+        "mean": -0.1442251576209516,
+        "median": -0.1852767499414517,
+        "std": 1.1872015278279575,
+        "min": -1.8334201108348875,
+        "max": 3.1125014280779952
+      }
+    }
+  },
+  "R_retraining_subset": {
+    "count": 12,
+    "win_rate_vs_two_stage": 0.08333333333333333,
+    "final_advantage_percent": {
+      "mean": -1.0788091960320187,
+      "median": -1.1666955852557492,
+      "std": 0.7715229366718479,
+      "min": -2.5881079100058773,
+      "max": 0.14666639958310712
+    },
+    "mean_online_training_seconds": 31.23874514033336
+  }
+}
