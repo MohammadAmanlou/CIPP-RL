@@ -21,9 +21,11 @@ from .gurobi import (
     solve_adaptive_gurobi,
     solve_two_stage_adaptive_gurobi,
     solve_clairvoyant_adaptive_gurobi,
+    solve_stochastic_prefix_gurobi,
 )
 from .training import (
     AdaptiveTrainingConfig,
+    RecourseAwareTrainingConfig,
     ResidualRetrainingConfig,
     residual_best_of_k,
     residual_greedy,
@@ -32,6 +34,8 @@ from .training import (
     anticipatory_then_greedy,
     train_fixed_prefix_residual,
     train_method_c,
+    train_multi_instance_method_c,
+    train_recourse_aware_prefix,
 )
 
 __all__ = [
@@ -53,7 +57,9 @@ __all__ = [
     "solve_adaptive_gurobi",
     "solve_two_stage_adaptive_gurobi",
     "solve_clairvoyant_adaptive_gurobi",
+    "solve_stochastic_prefix_gurobi",
     "AdaptiveTrainingConfig",
+    "RecourseAwareTrainingConfig",
     "ResidualRetrainingConfig",
     "residual_best_of_k",
     "residual_greedy",
@@ -62,4 +68,6 @@ __all__ = [
     "anticipatory_then_greedy",
     "train_fixed_prefix_residual",
     "train_method_c",
+    "train_multi_instance_method_c",
+    "train_recourse_aware_prefix",
 ]
