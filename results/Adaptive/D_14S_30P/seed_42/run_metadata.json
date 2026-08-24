@@ -1,66 +1,17 @@
 {
-  "version": "V6",
   "instance": "D_14S_30P",
   "seed": 42,
-  "device": "cuda",
-  "torch_version": "2.10.0+cu128",
-  "cuda_available": true,
-  "gpu": "Tesla T4",
-  "python": "3.12.13",
-  "static_checkpoint": "results/Static/D_14S_30P/D_14S_30P/attention/seed_42/checkpoint_best.pt",
-  "curriculum": {
-    "version": "rich_v6",
-    "timing": "random integer switch day across approximately days 4..26 for H=30",
-    "families": [
-      "no_shock",
-      "mixed",
-      "boost_only",
-      "suppress_only",
-      "concentrated",
-      "distributed",
-      "multi_shock_training_only"
-    ],
-    "magnitude_ranges": {
-      "ordinary_boost": [
-        1.1,
-        3.0
-      ],
-      "ordinary_suppress": [
-        0.25,
-        0.95
-      ],
-      "concentrated_boost": [
-        2.2,
-        4.0
-      ],
-      "concentrated_suppress": [
-        0.15,
-        0.55
-      ],
-      "distributed_boost": [
-        1.1,
-        1.8
-      ],
-      "distributed_suppress": [
-        0.55,
-        0.95
-      ]
-    },
-    "curriculum": {
-      "early": "moderate single shocks + no-shock",
-      "middle": "full single-shock mixture + some multi-shock",
-      "late": "more concentrated/extreme and multi-shock episodes"
-    }
-  },
-  "heldout_suite_count": 100,
-  "heldout_seed": 260824,
-  "main_rollouts": 512,
-  "suite_rollouts": 64,
+  "device": "cpu",
+  "torch_version": "2.5.1+cu121",
+  "cuda_available": false,
+  "gpu": null,
+  "python": "3.10.8",
+  "static_checkpoint": "results\\Static\\D_14S_30P\\D_14S_30P\\attention\\seed_42\\checkpoint_best.pt",
+  "final_rollouts": 512,
   "information_safety": {
-    "future_shock_identity_hidden_before_realization": true,
-    "no_pre_shock_best_of_k_hindsight": true,
-    "frozen_B_D_use_parallel_static_observation_env": true,
-    "multi_shocks_are_training_only_in_v6": true,
-    "heldout_gurobi_suite_is_single_shock_only": true
+    "frozen_B_D_parallel_static_observation_env": true,
+    "method_c_pre_shock_future_identity_visible": false,
+    "method_c_pre_shock_best_of_k_selection": false,
+    "best_of_k_allowed_only_after_shock": true
   }
 }
